@@ -1,12 +1,16 @@
-from tools import *
-from hangman import *
+from src.tools import read_words, read_person_stages
+from src.hangman import wrap_str, Color, play, choose_word
+import os
+
 
 def greetings():
     greeting = "\nLet's play the game "
-    print(wrap_str(greeting, Color.PURPLE, Color.ITALIC), end="")
+    print(wrap_str(greeting), end="")
     print(wrap_str("'GALLOWS'", Color.RED, Color.BOLD))
 
-def main_loop():
+
+def main():
+    greetings()
     word_list = read_words()
     stages = read_person_stages()
     play(choose_word(word_list), stages)
@@ -17,20 +21,16 @@ def main_loop():
         thank = "\nThanks for playing! See you! "
         wrong = "\nDon't understand, please repeat. "
 
-        print(wrap_str(question, Color.PURPLE, Color.ITALIC))
+        print(wrap_str(question))
         print(wrap_str(agree, Color.GREEN))
-        print(wrap_str("> ", Color.PURPLE) + Color.CYAN, end="")
+        print(wrap_str("> ") + Color.CYAN, end="")
         repeat = input().upper()
-        print(Color.END, end='')
+        print(Color.END, end="")
         if repeat == "YES":
-            os.system('cls')
+            os.system("cls")
             play(choose_word(word_list), stages)
         elif repeat == "NO":
-            print(wrap_str(thank, Color.PURPLE, Color.ITALIC) + '\U0001F609\n')
+            print(wrap_str(thank) + "\U0001F609\n")
             break
         else:
-            print(wrap_str(wrong, Color.PURPLE, Color.ITALIC) + '\U0001F644')
-
-def main():
-    greetings()
-    main_loop()
+            print(wrap_str(wrong) + "\U0001F644")
